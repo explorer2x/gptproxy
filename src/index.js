@@ -50,7 +50,7 @@ const handlePost = async (req, res) => {
 
   // Check if stream parameter is valid
   const { stream } = req.body;
-  if (stream != nulland stream !== true && stream !== false) {
+  if (stream !=null && typeof stream !== 'boolean') {
     return res.status(400).set(corsHeaders).type('text/plain').send('The `stream` parameter must be a boolean value');
   }
 
@@ -62,12 +62,12 @@ const handlePost = async (req, res) => {
 
     // Get api_keys from request headers
     // here is my revision
-    const { api_key } = req.headers['api_key'];
+    const { api_key } = req.headers;
     // Parse api_keys as JSON
     const parsedApiKeys = JSON.parse(api_key);
     
     // Use parsedApiKeys instead of process.env.API_KEYS
-    const authHeaderUpstream = authHeader || `Bearer ${randomChoice(parsedApiKeys)}`;
+    const authHeaderUpstream = `Bearer ${randomChoice(parsedApiKeys)}`;
 
       
 
